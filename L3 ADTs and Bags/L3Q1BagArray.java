@@ -90,6 +90,7 @@ public class L3Q1BagArray<T> implements L3Q1BagInterface<T>{
 
     public T[] union(T[] bag2){
         int arraySize = this.numberOfEnteries + bag2.length;
+        @SuppressWarnings("unchecked")
         T[] result = (T[]) new Object[arraySize];
         System.arraycopy(this.bag, 0, result, 0, this.numberOfEnteries);
         System.arraycopy(bag2, 0, result, this.numberOfEnteries, bag2.length);
@@ -99,6 +100,7 @@ public class L3Q1BagArray<T> implements L3Q1BagInterface<T>{
 
     public T[] intersection(T[] bag2){
         int maxSize = Math.max(this.numberOfEnteries, bag2.length);
+        @SuppressWarnings("unchecked")
         T[] result = (T[]) new Object[maxSize];
         int resultIndex = 0;
         for(int i=0;i<bag2.length;i++){
@@ -114,6 +116,7 @@ public class L3Q1BagArray<T> implements L3Q1BagInterface<T>{
 
     public T[] difference(T[] bag2){
         int maxSize = this.numberOfEnteries;
+        @SuppressWarnings("unchecked")
         T[] result = (T[]) new Object[maxSize];
         System.arraycopy(bag, 0, result, 0, this.numberOfEnteries);
         for(int i=0;i<bag2.length;i++){
