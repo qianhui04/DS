@@ -88,6 +88,48 @@ public class L3Q1BagArray<T> implements L3Q1BagInterface<T>{
         //Arrays.copyOf(where, length);
     }
 
+    public T[] union(T[] bag2){
+        int arraySize = this.numberOfEnteries + bag2.length;
+        T[] result = (T[]) new Object[arraySize];
+        System.arraycopy(this.bag, 0, result, 0, this.numberOfEnteries);
+        System.arraycopy(bag2, 0, result, this.numberOfEnteries, bag2.length);
+
+        return result;
+    }
+
+    public T[] intersection(T[] bag2){
+        int maxSize = Math.max(this.numberOfEnteries, bag2.length);
+        T[] result = (T[]) new Object[maxSize];
+        int resultIndex = 0;
+        for(int i=0;i<bag2.length;i++){
+            for(int j=0;j<this.numberOfEnteries;j++){
+                if(bag2[i].equals(bag[j])){
+                    result[resultIndex++] = bag2[i];
+                    break;
+                }
+            }
+        }
+        return Arrays.copyOf(result, resultIndex);
+    }
+
+    public T[] difference(T[] bag2){
+        int maxSize = this.numberOfEnteries;
+        T[] result = (T[]) new Object[maxSize];
+        System.arraycopy(bag, 0, result, 0, this.numberOfEnteries);
+        for(int i=0;i<bag2.length;i++){
+            for(int j=0;j<maxSize;j++){
+                if(bag2[i] != null && result[j] != null && bag2[i].equals(bag[j])){
+                    for(int k=j;k<maxSize-1;k++){
+                        result[k] = result[k+1];
+                    }
+                    result[--maxSize] = null;
+                    break;
+                }
+            }
+        }
+        return Arrays.copyOf(result, maxSize);
+    }
+
         public static void main(String[] args) {
             L3Q1BagArray<String> bag = new L3Q1BagArray<>();
     
@@ -112,5 +154,14 @@ public class L3Q1BagArray<T> implements L3Q1BagInterface<T>{
     
             // Checking if the bag is empty
             System.out.println("Bag is empty: " + bag.isEmpty());
+
+            String[] bag2 = {"Banana"};
+            System.out.println("Union of bags: " + Arrays.toString(bag.union(bag2)));
+
+            String[] bag3 = {"Banana", "Grapes", "Apple"};
+            System.out.println("Intersections of bags: " + Arrays.toString(bag.intersection(bag3)));
+
+            String[] bag4 = {"Apple", "Banana", "Grapes"};
+            System.out.println("Difference of bags: " + Arrays.toString(bag.difference(bag4)));
         }
 }

@@ -33,4 +33,13 @@ public interface L3Q1BagInterface<T>{
  /** Retrieves all entries that are in this bag.
   *  @return a newly allocated array of all the entries in the bag */
  public T[] toArray();
+
+ //L3Q2
+ public T[] union(T[] bag2);
+
+ //L3Q3
+ public T[] intersection(T[] bag2);
+
+ //L3Q4
+ public T[] difference(T[] bag2);
 }
